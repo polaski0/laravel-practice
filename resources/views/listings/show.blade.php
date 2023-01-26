@@ -7,14 +7,6 @@
                     <a class="text-sm bg-red-500 px-2 py-1 text-white rounded-md" href="/listings/{{ $listing->id }}/edit">
                         Edit
                     </a>
-                    <form action="/listings/{{$listing->id}}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button class="text-sm px-2 py-1 border rounded-md" type="submit">Delete</button>
-                    </form>
-                    {{-- <a class="text-sm border px-2 py-1 rounded-md" href="/listings/{{ $listing->id }}/edit">
-                        Delete
-                    </a> --}}
                 </div>
             </div>
             <div class="w-full flex flex-col justify-center items-center gap-2">
