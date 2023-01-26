@@ -1,9 +1,9 @@
 
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\ListingController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use App\Models\Listing;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,18 +16,50 @@ use App\Models\Listing;
 |
 */
 
+/*
+|--------------------------------------------------------------------------
+| Listings
+|--------------------------------------------------------------------------
+*/
+
 // Get all listing
-Route::get('/', function () {
-    return view('listings', [
-        'listings' => Listing::all()
-    ]);
-});
+Route::get('/', [ListingController::class, 'index']);
+
+// Show create form
+Route::get('/listings/create', [ListingController::class, 'create']);
+
+// Store Listing data
+Route::post('/listings', [ListingController::class, 'store']);
+
+// Show Edit form
+Route::get('/listings/{listing}/edit', [ListingController::class, 'edit']);
+
+// Update listing
+Route::put('listings/{listing}', [ListingController::class, 'update']);
+
+// Delete listing
+Route::delete('listings/{listing}', [ListingController::class, 'destroy']);
 
 // Single listing
-Route::get('/listing/{listing}', function (Listing $listing) {
+Route::get('/listings/{listing}', [ListingController::class, 'show'])->whereNumber('listing');
 
-    return view('listing', [
-        'listing' => $listing
-    ]);
+/*
+|--------------------------------------------------------------------------
+| Users
+|--------------------------------------------------------------------------
+*/
 
-})->whereNumber('listing');
+// Show Login form
+Route::get('/login', [UserController::class, 'index']);
+
+// Show Register/Create form
+Route::get('/register', [UserController::class, 'create']);
+
+// Create new user
+Route::post('/users', [UserController::class, 'store']);
+
+// Log user in
+Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+
+// Log user out
+Route::post('/logout', [UserController::class, 'logout']);
